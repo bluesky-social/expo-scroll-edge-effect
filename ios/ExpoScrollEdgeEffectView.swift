@@ -20,6 +20,14 @@ class ExpoScrollEdgeEffectView: ExpoView {
     }
   }
 
+  var effect: String = "automatic" {
+    didSet {
+      if effect != oldValue {
+        updateInteraction()
+      }
+    }
+  }
+
   required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
   }
@@ -28,7 +36,12 @@ class ExpoScrollEdgeEffectView: ExpoView {
     super.willMove(toWindow: newWindow)
     if newWindow == nil {
       removeInteraction()
-    } else {
+    }
+  }
+
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    if window != nil {
       updateInteraction()
     }
   }
@@ -38,14 +51,29 @@ class ExpoScrollEdgeEffectView: ExpoView {
 
     guard window != nil else { return }
     guard let tag = scrollViewTag else { return }
-
     guard #available(iOS 26, *) else { return }
-
     guard let scrollView = resolveScrollView(tag: tag) else { return }
+
+    let resolvedEdge = self.resolveEdge(edge)
+    let resolvedStyle = self.resolveEffectStyle(effect)
+
+    if let resolvedStyle = resolvedStyle {
+      switch resolvedEdge {
+      case .top: scrollView.topEdgeEffect.style = resolvedStyle
+      case .bottom: scrollView.bottomEdgeEffect.style = resolvedStyle
+      case .left: scrollView.leftEdgeEffect.style = resolvedStyle
+      case .right: scrollView.rightEdgeEffect.style = resolvedStyle
+      default: break
+      }
+    }
+
+    if self.effect == "hidden" {
+      return
+    }
 
     let interaction = UIScrollEdgeElementContainerInteraction()
     interaction.scrollView = scrollView
-    interaction.edge = resolveEdge(edge)
+    interaction.edge = resolvedEdge
     addInteraction(interaction)
     currentInteraction = interaction
   }
@@ -68,7 +96,6 @@ class ExpoScrollEdgeEffectView: ExpoView {
       return scrollView
     }
 
-    // RCTScrollView / RCTScrollViewComponentView wrap UIScrollView as a subview
     for subview in view.subviews {
       if let scrollView = subview as? UIScrollView {
         return scrollView
@@ -86,6 +113,17 @@ class ExpoScrollEdgeEffectView: ExpoView {
     case "left": return .left
     case "right": return .right
     default: return .top
+    }
+  }
+
+  @available(iOS 26, *)
+  private func resolveEffectStyle(_ effect: String) -> UIScrollEdgeEffect.Style? {
+    switch effect {
+    case "automatic": return .automatic
+    case "hard": return .hard
+    case "soft": return .soft
+    case "hidden": return nil
+    default: return .automatic
     }
   }
 }

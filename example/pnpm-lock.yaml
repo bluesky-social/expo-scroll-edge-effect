@@ -11,12 +11,18 @@ importers:
       expo:
         specifier: ~54.0.33
         version: 54.0.33(@babel/core@7.29.0)(@expo/dom-webview@55.0.3)(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      expo-glass-effect:
+        specifier: ^0.1.9
+        version: 0.1.9(expo@54.0.33)(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
       react:
         specifier: 19.1.0
         version: 19.1.0
       react-native:
         specifier: 0.81.5
         version: 0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0)
+      react-native-safe-area-context:
+        specifier: ^5.6.2
+        version: 5.6.2(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@types/react':
         specifier: ~19.1.17
@@ -1280,6 +1286,13 @@ packages:
       react: '*'
       react-native: '*'
 
+  expo-glass-effect@0.1.9:
+    resolution: {integrity: sha512-mDnoQKrvdkKEk1kUDgCKRdw1fHsouG25BclBico9lZSrLb7HpfGla3jnlz9rYGqXIiO8i9BTxpsmFhDnc1/4hg==}
+    peerDependencies:
+      expo: '*'
+      react: '*'
+      react-native: '*'
+
   expo-keep-awake@15.0.8:
     resolution: {integrity: sha512-YK9M1VrnoH1vLJiQzChZgzDvVimVoriibiDIFLbQMpjYBnvyfUeHJcin/Gx1a+XgupNXy92EQJLgI/9ZuXajYQ==}
     peerDependencies:
@@ -2083,6 +2096,12 @@ packages:
 
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
+
+  react-native-safe-area-context@5.6.2:
+    resolution: {integrity: sha512-4XGqMNj5qjUTYywJqpdWZ9IG8jgkS3h06sfVjfw5yZQZfWnRFXczi0GnYyFyCc2EBps/qFmoCH8fez//WumdVg==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
 
   react-native@0.81.5:
     resolution: {integrity: sha512-1w+/oSjEXZjMqsIvmkCRsOc8UBYv163bTWKTI8+1mxztvQPhCRYGTvZ/PL1w16xXHneIj/SLGfxWg2GWN2uexw==}
@@ -4191,6 +4210,12 @@ snapshots:
       react: 19.1.0
       react-native: 0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0)
 
+  expo-glass-effect@0.1.9(expo@54.0.33)(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0):
+    dependencies:
+      expo: 54.0.33(@babel/core@7.29.0)(@expo/dom-webview@55.0.3)(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0)
+
   expo-keep-awake@15.0.8(expo@54.0.33)(react@19.1.0):
     dependencies:
       expo: 54.0.33(@babel/core@7.29.0)(@expo/dom-webview@55.0.3)(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
@@ -5186,6 +5211,11 @@ snapshots:
       - utf-8-validate
 
   react-is@18.3.1: {}
+
+  react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0)
 
   react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0):
     dependencies:
