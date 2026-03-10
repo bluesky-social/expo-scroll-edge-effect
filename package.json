@@ -1,6 +1,6 @@
 {
   "name": "@bsky.app/expo-scroll-edge-effect",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Expo module for UIScrollEdgeElementContainerInteraction",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -29,6 +29,7 @@
   "license": "MIT",
   "homepage": "https://github.com/bluesky-social/expo-scroll-edge-effect#readme",
   "devDependencies": {
+    "@expo/npm-proofread": "^1.0.1",
     "@types/react": "~19.1.1",
     "expo": "^54.0.33",
     "expo-module-scripts": "^55.0.2",

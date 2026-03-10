@@ -12,6 +12,9 @@ importers:
         specifier: '*'
         version: 19.2.4
     devDependencies:
+      '@expo/npm-proofread':
+        specifier: ^1.0.1
+        version: 1.0.1
       '@types/react':
         specifier: ~19.1.1
         version: 19.1.17
