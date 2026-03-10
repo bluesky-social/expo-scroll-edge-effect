@@ -4,6 +4,8 @@ An Expo module wrapping [`UIScrollEdgeElementContainerInteraction`](https://deve
 
 On older iOS versions and other platforms, the components render as plain `View`s.
 
+https://github.com/user-attachments/assets/3c6e3ed1-b785-48cc-9d2e-63dfadb45ad2
+
 ## Installation
 
 ```sh
