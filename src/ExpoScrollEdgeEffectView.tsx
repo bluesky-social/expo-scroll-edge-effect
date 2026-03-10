@@ -1,11 +1,6 @@
 import { requireNativeView } from 'expo';
-import * as React from 'react';
 
-import { ExpoScrollEdgeEffectViewProps } from './ExpoScrollEdgeEffect.types';
+import { NativeScrollEdgeEffectViewProps } from './ExpoScrollEdgeEffect.types';
 
-const NativeView: React.ComponentType<ExpoScrollEdgeEffectViewProps> =
+export const NativeView: React.ComponentType<NativeScrollEdgeEffectViewProps> =
   requireNativeView('ExpoScrollEdgeEffect');
-
-export default function ExpoScrollEdgeEffectView(props: ExpoScrollEdgeEffectViewProps) {
-  return <NativeView {...props} />;
-}

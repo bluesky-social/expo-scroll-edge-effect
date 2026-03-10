@@ -1,73 +1,83 @@
-import { useEvent } from 'expo';
-import ExpoScrollEdgeEffect, { ExpoScrollEdgeEffectView } from 'expo-scroll-edge-effect';
-import { Button, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import {
+  ScrollEdgeEffect,
+  ScrollEdgeEffectProvider,
+  useScrollEdgeEffectRef,
+} from 'expo-scroll-edge-effect';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
-  const onChangePayload = useEvent(ExpoScrollEdgeEffect, 'onChange');
-
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.container}>
-        <Text style={styles.header}>Module API Example</Text>
-        <Group name="Constants">
-          <Text>{ExpoScrollEdgeEffect.PI}</Text>
-        </Group>
-        <Group name="Functions">
-          <Text>{ExpoScrollEdgeEffect.hello()}</Text>
-        </Group>
-        <Group name="Async functions">
-          <Button
-            title="Set value"
-            onPress={async () => {
-              await ExpoScrollEdgeEffect.setValueAsync('Hello from JS!');
-            }}
-          />
-        </Group>
-        <Group name="Events">
-          <Text>{onChangePayload?.value}</Text>
-        </Group>
-        <Group name="Views">
-          <ExpoScrollEdgeEffectView
-            url="https://www.example.com"
-            onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
-            style={styles.view}
-          />
-        </Group>
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollEdgeEffectProvider>
+      <SafeAreaView style={styles.container}>
+        <ScrollEdgeEffect edge="top">
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Header</Text>
+          </View>
+        </ScrollEdgeEffect>
+
+        <ScrollContent />
+
+        <ScrollEdgeEffect edge="bottom">
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>Footer</Text>
+          </View>
+        </ScrollEdgeEffect>
+      </SafeAreaView>
+    </ScrollEdgeEffectProvider>
   );
 }
 
-function Group(props: { name: string; children: React.ReactNode }) {
+function ScrollContent() {
+  const scrollEdgeRef = useScrollEdgeEffectRef();
+
   return (
-    <View style={styles.group}>
-      <Text style={styles.groupHeader}>{props.name}</Text>
-      {props.children}
-    </View>
+    <ScrollView ref={scrollEdgeRef} style={styles.scrollView}>
+      {Array.from({ length: 50 }, (_, i) => (
+        <View key={i} style={styles.item}>
+          <Text style={styles.itemText}>Item {i + 1}</Text>
+        </View>
+      ))}
+    </ScrollView>
   );
 }
 
-const styles = {
-  header: {
-    fontSize: 30,
-    margin: 20,
-  },
-  groupHeader: {
-    fontSize: 20,
-    marginBottom: 20,
-  },
-  group: {
-    margin: 20,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-  },
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eee',
+    backgroundColor: '#f0f0f0',
   },
-  view: {
+  header: {
+    padding: 16,
+    backgroundColor: '#fff',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#ccc',
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  footer: {
+    padding: 16,
+    backgroundColor: '#fff',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#ccc',
+  },
+  footerText: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#666',
+  },
+  scrollView: {
     flex: 1,
-    height: 200,
   },
-};
+  item: {
+    padding: 20,
+    marginHorizontal: 16,
+    marginVertical: 4,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+  },
+  itemText: {
+    fontSize: 16,
+  },
+});

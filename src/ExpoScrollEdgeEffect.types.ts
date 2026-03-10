@@ -1,19 +1,15 @@
+import type { PropsWithChildren } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
 
-export type OnLoadEventPayload = {
-  url: string;
-};
+export type Edge = 'top' | 'bottom' | 'left' | 'right';
 
-export type ExpoScrollEdgeEffectModuleEvents = {
-  onChange: (params: ChangeEventPayload) => void;
-};
-
-export type ChangeEventPayload = {
-  value: string;
-};
-
-export type ExpoScrollEdgeEffectViewProps = {
-  url: string;
-  onLoad: (event: { nativeEvent: OnLoadEventPayload }) => void;
+export type ScrollEdgeEffectProps = PropsWithChildren<{
+  edge: Edge;
   style?: StyleProp<ViewStyle>;
-};
+}>;
+
+export type NativeScrollEdgeEffectViewProps = PropsWithChildren<{
+  scrollViewTag: number | null;
+  edge: Edge;
+  style?: StyleProp<ViewStyle>;
+}>;
