@@ -78,7 +78,8 @@ Wraps content that overlays a scroll view edge. On iOS 26+, descendant views (la
 | Prop | Type | Description |
 |------|------|-------------|
 | `edge` | `'top' \| 'bottom' \| 'left' \| 'right'` | Which scroll view edge this content overlays. |
-| `fallbackStyle` | `ViewStyle` | Additional style applied only on non-iOS platforms. |
+| `effect` | `'automatic' \| 'hard' \| 'soft' \| 'hidden'` | Edge effect style. Defaults to `'automatic'`. `'hidden'` disables the interaction entirely. |
+| `fallbackStyle` | `ViewStyle` | Additional style applied on non-iOS platforms and iOS < 26. |
 | `...viewProps` | `ViewProps` | All standard View props are forwarded. |
 
 ## Platform support
