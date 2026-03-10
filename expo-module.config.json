@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android", "web"],
+  "apple": {
+    "modules": ["ExpoScrollEdgeEffectModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.scrolledgeeffect.ExpoScrollEdgeEffectModule"]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "expo-scroll-edge-effect": ["../src/index"],
+      "expo-scroll-edge-effect/*": ["../src/*"]
+    }
+  }
+}
