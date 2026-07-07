@@ -32,7 +32,7 @@
     "@expo/npm-proofread": "^1.0.1",
     "@types/react": "~19.2.17",
     "expo": "^57.0.4",
-    "expo-module-scripts": "^55.0.2",
+    "expo-module-scripts": "^56.0.3",
     "prettier": "^3.8.1",
     "react-native": "0.86.0"
   },
