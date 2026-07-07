@@ -4,10 +4,14 @@ import UIKit
 class ExpoScrollEdgeEffectView: ExpoView {
   private var currentInteraction: NSObject?
 
+  private var isAttached = false
+  private var resolveAttempts = 0
+  private let maxResolveAttempts = 30
+
   var scrollViewTag: Int? {
     didSet {
       if scrollViewTag != oldValue {
-        updateInteraction()
+        scheduleResolve()
       }
     }
   }
@@ -15,7 +19,7 @@ class ExpoScrollEdgeEffectView: ExpoView {
   var edge: String = "top" {
     didSet {
       if edge != oldValue {
-        updateInteraction()
+        scheduleResolve()
       }
     }
   }
@@ -23,7 +27,7 @@ class ExpoScrollEdgeEffectView: ExpoView {
   var effect: String = "automatic" {
     didSet {
       if effect != oldValue {
-        updateInteraction()
+        scheduleResolve()
       }
     }
   }
@@ -42,8 +46,21 @@ class ExpoScrollEdgeEffectView: ExpoView {
   override func didMoveToWindow() {
     super.didMoveToWindow()
     if window != nil {
+      scheduleResolve()
+    }
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+
+    if !isAttached, window != nil, scrollViewTag != nil, resolveAttempts < maxResolveAttempts {
       updateInteraction()
     }
+  }
+
+  private func scheduleResolve() {
+    resolveAttempts = 0
+    updateInteraction()
   }
 
   private func updateInteraction() {
@@ -52,7 +69,16 @@ class ExpoScrollEdgeEffectView: ExpoView {
     guard window != nil else { return }
     guard let tag = scrollViewTag else { return }
     guard #available(iOS 26, *) else { return }
-    guard let scrollView = resolveScrollView(tag: tag) else { return }
+    guard let scrollView = resolveScrollView(tag: tag) else {
+      if resolveAttempts < maxResolveAttempts {
+        resolveAttempts += 1
+        setNeedsLayout()
+      }
+      return
+    }
+
+    resolveAttempts = 0
+    isAttached = true
 
     let resolvedEdge = self.resolveEdge(edge)
     let resolvedStyle = self.resolveEffectStyle(effect)
@@ -79,6 +105,8 @@ class ExpoScrollEdgeEffectView: ExpoView {
   }
 
   private func removeInteraction() {
+    isAttached = false
+
     guard #available(iOS 26, *) else { return }
 
     if let interaction = currentInteraction as? UIScrollEdgeElementContainerInteraction {
