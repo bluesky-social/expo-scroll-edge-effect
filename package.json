@@ -1,6 +1,6 @@
 {
   "name": "@bsky.app/expo-scroll-edge-effect",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Expo module for UIScrollEdgeElementContainerInteraction",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -30,11 +30,11 @@
   "homepage": "https://github.com/bluesky-social/expo-scroll-edge-effect#readme",
   "devDependencies": {
     "@expo/npm-proofread": "^1.0.1",
-    "@types/react": "~19.1.1",
-    "expo": "^54.0.33",
+    "@types/react": "~19.2.17",
+    "expo": "^57.0.4",
     "expo-module-scripts": "^55.0.2",
     "prettier": "^3.8.1",
-    "react-native": "0.81.5"
+    "react-native": "0.86.0"
   },
   "peerDependencies": {
     "expo": "*",
