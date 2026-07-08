@@ -1,6 +1,6 @@
 {
   "name": "@bsky.app/expo-scroll-edge-effect",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Expo module for UIScrollEdgeElementContainerInteraction",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -9,7 +9,6 @@
     "clean": "expo-module clean",
     "lint": "expo-module lint",
     "test": "expo-module test",
-    "prepare": "expo-module prepare",
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
     "open:ios": "xed example/ios",
@@ -32,9 +31,10 @@
     "@expo/npm-proofread": "^1.0.1",
     "@types/react": "~19.2.17",
     "expo": "^57.0.4",
-    "expo-module-scripts": "^55.0.2",
+    "expo-module-scripts": "^56.0.3",
     "prettier": "^3.8.1",
-    "react-native": "0.86.0"
+    "react-native": "0.86.0",
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
     "expo": "*",
