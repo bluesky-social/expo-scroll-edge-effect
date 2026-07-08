@@ -1,4 +1,4 @@
-import { NodeHandle } from "react-native";
+import { type NodeHandle } from "react-native";
 
 export function ScrollEdgeEffectProvider({
   children,

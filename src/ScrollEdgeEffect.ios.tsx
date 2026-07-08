@@ -1,12 +1,10 @@
-import React from "react";
 import { Platform } from "react-native";
 
 import type { ScrollEdgeEffectProps } from "./ExpoScrollEdgeEffect.types";
 import { NativeView } from "./ExpoScrollEdgeEffectView";
 import { useScrollEdgeEffectContext } from "./ScrollEdgeEffectProvider";
 
-const supportsEdgeEffect =
-  parseInt(String(Platform.Version), 10) >= 26;
+const supportsEdgeEffect = parseInt(String(Platform.Version), 10) >= 26;
 
 export function ScrollEdgeEffect({
   edge,
