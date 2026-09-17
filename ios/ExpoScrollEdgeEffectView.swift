@@ -4,6 +4,12 @@ import UIKit
 class ExpoScrollEdgeEffectView: ExpoView {
   private var currentInteraction: NSObject?
 
+  private var pocketElementView: UIImageView?
+
+  private static let clearImage: UIImage = {
+    UIGraphicsImageRenderer(size: CGSize(width: 1, height: 1)).image { _ in }
+  }()
+
   private var isAttached = false
   private var resolveAttempts = 0
   private let maxResolveAttempts = 30
@@ -53,9 +59,28 @@ class ExpoScrollEdgeEffectView: ExpoView {
   override func layoutSubviews() {
     super.layoutSubviews()
 
+    // React Native mounts children by absolute subview index, so the element
+    // view must stay last to keep those indices valid.
+    if let pocketElementView, subviews.last !== pocketElementView {
+      bringSubviewToFront(pocketElementView)
+    }
+
     if !isAttached, window != nil, scrollViewTag != nil, resolveAttempts < maxResolveAttempts {
       updateInteraction()
     }
+  }
+
+  private func ensurePocketElementView() {
+    if pocketElementView != nil {
+      return
+    }
+    let view = UIImageView(frame: bounds)
+    view.image = Self.clearImage
+    view.isUserInteractionEnabled = false
+    view.isAccessibilityElement = false
+    view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    addSubview(view)
+    pocketElementView = view
   }
 
   private func scheduleResolve() {
@@ -96,6 +121,8 @@ class ExpoScrollEdgeEffectView: ExpoView {
     if self.effect == "hidden" {
       return
     }
+
+    ensurePocketElementView()
 
     let interaction = UIScrollEdgeElementContainerInteraction()
     interaction.scrollView = scrollView
