@@ -75,7 +75,7 @@ Returns a callback ref to pass to your `ScrollView`. Must be used within a `<Scr
 
 ### `<ScrollEdgeEffect>`
 
-Wraps content that overlays a scroll view edge. On iOS 26+, UIKit derives the effect's region from the descendant views it recognizes as elements (`UIImageView`, `UILabel`, glass views, `UIControl`s), not from the container's frame. React Native views, text and SVG are not recognized, so a container made only of those would render no effect at all. To make the effect reliable, the component adds an invisible, non-interactive image view filling its bounds; the effect therefore always covers the container, and any recognized descendants (e.g. an `expo-image` or a `GlassView`) still extend it as usual.
+Wraps content that overlays a scroll view edge. On iOS 26+, descendant views (labels, buttons, images, etc.) automatically influence the scroll edge effect shape.
 
 | Prop | Type | Description |
 |------|------|-------------|
