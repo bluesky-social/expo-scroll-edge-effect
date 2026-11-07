@@ -108,13 +108,14 @@ class ExpoScrollEdgeEffectView: ExpoView {
     let resolvedEdge = self.resolveEdge(edge)
     let resolvedStyle = self.resolveEffectStyle(effect)
 
-    if let resolvedStyle = resolvedStyle {
-      switch resolvedEdge {
-      case .top: scrollView.topEdgeEffect.style = resolvedStyle
-      case .bottom: scrollView.bottomEdgeEffect.style = resolvedStyle
-      case .left: scrollView.leftEdgeEffect.style = resolvedStyle
-      case .right: scrollView.rightEdgeEffect.style = resolvedStyle
-      default: break
+    if let edgeEffect = self.edgeEffect(of: scrollView, at: resolvedEdge) {
+      if let resolvedStyle = resolvedStyle {
+        edgeEffect.isHidden = false
+        edgeEffect.style = resolvedStyle
+      } else {
+        // "hidden" hides the scroll view's own edge effect too, rather than
+        // leaving it showing in whatever style it had last.
+        edgeEffect.isHidden = true
       }
     }
 
@@ -168,6 +169,17 @@ class ExpoScrollEdgeEffectView: ExpoView {
     case "left": return .left
     case "right": return .right
     default: return .top
+    }
+  }
+
+  @available(iOS 26, *)
+  private func edgeEffect(of scrollView: UIScrollView, at edge: UIRectEdge) -> UIScrollEdgeEffect? {
+    switch edge {
+    case .top: return scrollView.topEdgeEffect
+    case .bottom: return scrollView.bottomEdgeEffect
+    case .left: return scrollView.leftEdgeEffect
+    case .right: return scrollView.rightEdgeEffect
+    default: return nil
     }
   }
 
