@@ -4,7 +4,7 @@ import UIKit
 class ExpoScrollEdgeEffectView: ExpoView {
   private var currentInteraction: NSObject?
 
-  private var pocketElementView: UIImageView?
+  private var pocketElementView: UIView?
 
   private static let clearImage: UIImage = {
     UIGraphicsImageRenderer(size: CGSize(width: 1, height: 1)).image { _ in }
@@ -74,11 +74,29 @@ class ExpoScrollEdgeEffectView: ExpoView {
     if pocketElementView != nil {
       return
     }
-    let view = UIImageView(frame: bounds)
-    view.image = Self.clearImage
+    let view: UIView
+    if #available(iOS 27, *), edge == "top" {
+      // iOS 27 ignores a clear image view on the top edge, so the effect never
+      // grows past the status bar. A plain view registers by its frame. The
+      // other edges keep the clear image view: a plain view there removes the
+      // effect that iOS 27 already draws over the scroll view's content inset.
+      view = UIView(frame: bounds)
+    } else {
+      // iOS 26 ignores a plain empty view. A clear image view registers.
+      let imageView = UIImageView(frame: bounds)
+      imageView.image = Self.clearImage
+      view = imageView
+    }
     view.isUserInteractionEnabled = false
     view.isAccessibilityElement = false
     view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    if #available(iOS 27, *), edge == "bottom" {
+      // iOS 27 starts the bottom effect at the lower side of the element, where
+      // iOS 26 starts it at the upper side. A thin element on the upper side of
+      // this view gives both versions the same start.
+      view.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 1)
+      view.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+    }
     addSubview(view)
     pocketElementView = view
   }
